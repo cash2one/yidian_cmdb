@@ -1,0 +1,290 @@
+{% extends 'base_form.html' %}
+
+{% block title %}创建主机{% endblock %}
+
+{% block page_header %}主机管理{% endblock %}
+
+{% block optional_description %}创建主机{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li><a href="{% url 'asset-host-list' %}">主机管理</a></li>
+    <li class="active">创建主机</li>
+{% endblock %}
+
+{% block box-title %}创建主机{% endblock %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link href="/static/css/plugins/duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab_1" data-toggle="tab">创建主机</a></li>
+                    <li><a href="#tab_2" data-toggle="tab">批量创建</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <form role="form" action="#" method="post" id="myForm">{% csrf_token %}
+                            <fieldset>
+                                <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">资产属性</h4>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="{{ single_host_creation_form.an.id_for_label }}">{{ single_host_creation_form.an.label }}</label>
+                                            {% if single_host_creation_form.an.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                                <div class="callout callout-danger">
+                                                    {{ single_host_creation_form.an.errors }}
+                                                </div>
+                                            {% endif %}
+                                            {{ single_host_creation_form.an }}
+                                            {% if single_host_creation_form.an.help_text %}
+                                                <p class="help-block">{{ single_host_creation_form.an.help_text }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="{{ single_host_creation_form.sn.id_for_label }}">{{ single_host_creation_form.sn.label }}</label>
+                                            {% if single_host_creation_form.sn.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                                <div class="callout callout-danger">
+                                                    {{ single_host_creation_form.sn.errors }}
+                                                </div>
+                                            {% endif %}
+                                            {{ single_host_creation_form.sn }}
+                                            {% if single_host_creation_form.sn.help_text %}
+                                                <p class="help-block">{{ single_host_creation_form.sn.help_text }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <label for="{{ single_host_creation_form.product.id_for_label }}">{{ single_host_creation_form.product.label }}</label>
+                                            {% if single_host_creation_form.product.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                                <div class="callout callout-danger">
+                                                    {{ single_host_creation_form.product.errors }}
+                                                </div>
+                                            {% endif %}
+                                            {{ single_host_creation_form.product }}
+                                            {% if single_host_creation_form.product.help_text %}
+                                                <p class="help-block">{{ single_host_creation_form.product.help_text }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                        </fieldset>
+                        <fieldset>
+                            <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">位置信息</h4>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="{{ single_host_creation_form.cabinet.id_for_label }}">{{ single_host_creation_form.cabinet.label }}</label>
+                                        {% if single_host_creation_form.cabinet.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                            <div class="callout callout-danger">
+                                                {{ single_host_creation_form.cabinet.errors }}
+                                            </div>
+                                        {% endif %}
+                                        {{ single_host_creation_form.cabinet }}
+                                        {% if single_host_creation_form.cabinet.help_text %}
+                                            <p class="help-block">{{ single_host_creation_form.cabinet.help_text }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6">
+                                    <div class="form-group">
+                                        <label for="{{ single_host_creation_form.cabinet_index.id_for_label }}">{{ single_host_creation_form.cabinet_index.label }}</label>
+                                        {% if single_host_creation_form.cabinet_index.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                            <div class="callout callout-danger">
+                                                {{ single_host_creation_form.cabinet_index.errors }}
+                                            </div>
+                                        {% endif %}
+                                        {{ single_host_creation_form.cabinet_index }}
+                                        {% if single_host_creation_form.cabinet_index.help_text %}
+                                            <p class="help-block">{{ single_host_creation_form.cabinet_index.help_text }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">管理信息</h4>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label for="{{ single_host_creation_form.os.id_for_label }}">{{ single_host_creation_form.os.label }}</label>
+                                        {% if single_host_creation_form.os.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                            <div class="callout callout-danger">
+                                                {{ single_host_creation_form.os.errors }}
+                                            </div>
+                                        {% endif %}
+                                        {{ single_host_creation_form.os }}
+                                        {% if single_host_creation_form.os.help_text %}
+                                            <p class="help-block">{{ single_host_creation_form.os.help_text }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label for="{{ single_host_creation_form.host_name.id_for_label }}">{{ single_host_creation_form.host_name.label }}</label>
+                                        {% if single_host_creation_form.host_name.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                            <div class="callout callout-danger">
+                                                {{ single_host_creation_form.host_name.errors }}
+                                            </div>
+                                        {% endif %}
+                                        {{ single_host_creation_form.host_name }}
+                                        {% if single_host_creation_form.host_name.help_text %}
+                                            <p class="help-block">{{ single_host_creation_form.host_name.help_text }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="form-group">
+                                        <label for="{{ single_host_creation_form.management_ip.id_for_label }}">{{ single_host_creation_form.management_ip.label }}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-laptop"></i>
+                                            </div>
+                                            {% if single_host_creation_form.management_ip.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                                <div class="callout callout-danger">
+                                                    {{ single_host_creation_form.management_ip.errors }}
+                                                </div>
+                                            {% endif %}
+                                            {{ single_host_creation_form.management_ip }}
+                                            {% if single_host_creation_form.management_ip.help_text %}
+                                                <p class="help-block">{{ single_host_creation_form.management_ip.help_text }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <hr />
+                        <div class="form-group">
+                            <label for="{{ single_host_creation_form.nodes.id_for_label }}">{{ single_host_creation_form.nodes.label }}</label>
+                            {% if single_host_creation_form.nodes.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                <div class="callout callout-danger">
+                                    {{ single_host_creation_form.nodes.errors }}
+                                </div>
+                            {% endif %}
+                            {{ single_host_creation_form.nodes }}
+                            {% if single_host_creation_form.nodes.help_text %}
+                                <p class="help-block">{{ single_host_creation_form.nodes.help_text }}</p>
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">上线信息</h4>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="{{ single_host_creation_form.online_date.id_for_label }}">{{ single_host_creation_form.online_date.label }}</label>
+                                    {% if single_host_creation_form.online_date.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                        <div class="callout callout-danger">
+                                            {{ single_host_creation_form.online_date.errors }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="input-group date">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        {{ single_host_creation_form.online_date }}
+                                        {% if single_host_creation_form.online_date.help_text %}
+                                            <p class="help-block">{{ single_host_creation_form.online_date.help_text }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label for="{{ single_host_creation_form.status.id_for_label }}">{{ single_host_creation_form.status.label }}</label>
+                                        {% if single_host_creation_form.status.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                            <div class="callout callout-danger">
+                                                {{ single_host_creation_form.status.errors }}
+                                            </div>
+                                        {% endif %}
+                                        {{ single_host_creation_form.status }}
+                                        {% if single_host_creation_form.status.help_text %}
+                                            <p class="help-block">{{ single_host_creation_form.status.help_text }}</p>
+                                        {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <hr />
+                    <div class="form-group">
+                        <label for="{{ single_host_creation_form.remark.id_for_label }}">{{ single_host_creation_form.remark.label }}</label>
+                        {% if single_host_creation_form.remark.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                            <div class="callout callout-danger">
+                                {{ single_host_creation_form.remark.errors }}
+                            </div>
+                        {% endif %}
+                        {{ single_host_creation_form.remark }}
+                        {% if single_host_creation_form.remark.help_text %}
+                            <p class="help-block">{{ single_host_creation_form.remark.help_text }}</p>
+                        {% endif %}
+                    </div>
+                        <hr />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success" name="submit_single" value="单独创建">提交</button>
+                            <button type="reset" class="btn btn-warning">重置</button>
+                        </div>
+                 </form>
+            </div>
+                <div class="tab-pane" id="tab_2">
+                    <form role="form" action="#" method="post" id="myForm" enctype="multipart/form-data">{% csrf_token %}
+                        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">上传批量导入模版 <a href="/media/download/host_list.xls"><small>下载上传模版</small></a></h4>
+                        {% if batch_host_creation_form.non_field_errors %}
+                            <div class="callout callout-danger">
+                            {{ batch_host_creation_form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        <div class="form-group">
+                            <label for="{{ batch_host_creation_form.upload_excel.id_for_label }}">{{ batch_host_creation_form.upload_excel.label }}</label>
+                            {% if batch_host_creation_form.upload_excel.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                                <div class="callout callout-danger">
+                                    {{ batch_host_creation_form.upload_excel.errors }}
+                                </div>
+                            {% endif %}
+                            {{ batch_host_creation_form.upload_excel }}
+                            {% if batch_host_creation_form.upload_excel.help_text %}
+                                <p class="help-block">{{ batch_host_creation_form.upload_excel.help_text }}</p>
+                            {% endif %}
+                        </div>
+                        <hr />
+                    <div class="form-group">
+                            <button type="submit" class="btn btn-success" name="submit_batch" value="单独创建">提交</button>
+                            <button type="reset" class="btn btn-warning">重置</button>
+                        </div>
+                    </form>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script src="/static/js/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/static/js/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/static/js/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="/static/js/plugins/duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script>
+        $(function () {
+            $("#id_online_date").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+            $("[data-mask]").inputmask();
+
+            $('select[id=id_nodes]').bootstrapDualListbox(
+                {
+                    infoText: false,
+                    nonSelectedListLabel: '可用 节点',
+                    selectedListLabel: '被选中 节点',
+                    moveOnSelect: false
+                });
+        });
+    </script>
+{% endblock %}

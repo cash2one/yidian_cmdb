@@ -1,1 +1,1 @@
-# yidian_cmdb
+# 针对目前公司业务开发的CMDB系统

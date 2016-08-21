@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}当前登录用户{% endblock %}
+
+{% block page_header %}用户{% endblock %}
+
+{% block optional_description %}显示用户详细信息{% endblock %}
+
+{% block breadcrumb %}
+    <li class="active">当前用户</li>
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">账户信息</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tr>
+                            <td><strong>用户名</strong></td>
+                            <td>{{ user.get_username }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>密码</strong></td>
+                            <td>
+                                <a title="密码修改" href="{% url 'myauth-pwd-update' %}" class="btn btn-block btn-success btn-xs" role="button">密码修改</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>是否激活</strong></td>
+                            <td>
+                                {% if user.is_active %}
+                                    是
+                                {% else %}
+                                    否
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>访问 Admin 后台权限</strong></td>
+                            <td>
+                                {% if user.is_staff %}
+                                    是
+                                {% else %}
+                                    否
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>超级用户状态</strong></td>
+                            <td>
+                                {% if user.is_superuser %}
+                                    是
+                                {% else %}
+                                    否
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">个人信息</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tr>
+                            <td><strong>工号</strong></td>
+                            <td>{{ user.job_number }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>名字</strong></td>
+                            <td>{{ user.first_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>姓氏</strong></td>
+                            <td>{{ user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>邮箱</strong></td>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>电话</strong></td>
+                            <td>{{ user.phone_number }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">登录信息</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tr>
+                            <td><strong>上次登录</strong></td>
+                            <td>{{ user.last_login|date:"Y-m-d H:i:s" }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>注册时间</strong></td>
+                            <td>{{ user.date_joined|date:"Y-m-d H:i:s" }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

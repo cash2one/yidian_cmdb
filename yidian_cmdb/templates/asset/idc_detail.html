@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+
+{% block title %}机房详情{% endblock %}
+
+{% block ext_css %}
+    <link rel="stylesheet" href="/static/css/plugins/dataTables/datatables.bootstrap.min.css">
+    <style>
+        th, td { white-space: nowrap; }
+    </style>
+{% endblock %}
+
+{% block page_header %}{{ object.name }}{% endblock %}
+
+{% block optional_description %}详细信息{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li><a href="{% url 'asset-idc-list' %}">机房管理</a></li>
+    <li class="active">{{ object.name }}详情</li>
+{% endblock %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">地址信息</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tr>
+                        <td><strong>机房名称</strong></td>
+                        <td>{{ object.name }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>地址</strong></td>
+                        <td>{{ object.address }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>联系人</strong></td>
+                        <td>{{ object.contacts }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>电话</strong></td>
+                        <td>{{ object.contact_info }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">使用情况</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tr>
+                        <td><strong>电信带宽/Gbps</strong></td>
+                        <td>{{ object.ctc_bandwidth }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>联通/Gbps</strong></td>
+                        <td>{{ object.cnc_bandwidth }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>BGP带宽/Gbps</strong></td>
+                        <td>{{ object.bgp_bandwidth }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>状态</strong></td>
+                        <td>{{ object.get_status_display }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title">记录信息</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tr>
+                        <td><strong>记录创建时间</strong></td>
+                        <td>{{ object.created }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>记录最后更新时间</strong></td>
+                        <td>{{ object.changed }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title">备注</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body no-padding">
+                <p>{{ object.remark }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-block btn-flat btn-sm {% if not perms.asset.change_idc %}disabled{% endif %}" role="button" href="{% url 'asset-idc-update' object.id %}">
+    <i class="fa fa-edit fa-fw"></i>编辑
+</a>
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title">机房机柜管理</h3>
+                <div class="box-tools pull-right">
+                    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'asset-cabinet-creation' object.id %}"><i class="fa fa-plus"></i> 添加机柜</a>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <table id="cabinetTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="checkAll">
+                            </th>
+                            <th>ID</th>
+                            <th>机柜名称</th>
+                            <th>是否双路电</th>
+                            <th>机柜u数</th>
+                            <th>供电电压／V</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cabinet in object.cabinets.all %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="tableRecord" value="">
+                            </td>
+
+                                <td>{{ cabinet.id }}</td>
+                                <td>{{ cabinet.name}}</td>
+                                <td>{{ cabinet.get_standby_power_display }}</td>
+                                <td>{{ cabinet.u }}</td>
+                                <td>{{ cabinet.voltage }}</td>
+                                <td>{{ cabinet.remark }}</td>
+                                <td>
+                                    <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_cabinet %}disabled{% endif %}" role="button" href="{% url 'asset-cabinet-update' object.id cabinet.id %}">
+                                        <i class="fa fa-edit fa-fw"></i>编辑
+                                    </a>
+                                    <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_cabinet %}disabled{% endif %}" role="button" href="{% url 'asset-cabinet-deletion' object.id cabinet.id %}">
+                                        <i class="fa fa-trash-o fa-fw"></i>删除
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block ext_js %}
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.min.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#cabinetTable').DataTable({
+                "language": { // 异步加载插件中文显示
+                    "url": "/static/js/plugins/dataTables/plug-ins/Chinese.json"
+                },
+                "pagingType": "full_numbers", // 设置插件分页按钮的显示形式
+                "scrollX": true, // 激活插件水平方向滚动条
+                "pageLength": 50, // 设置插件初始化单页显示的记录条目数
+                "order": [[1, "desc"]], // 插件初始化以索引为1的列进行排序
+                "columnDefs": [
+                    {"orderable": false, "targets": [0, 2, 3, 4, 5, 6, 7]} // 禁用索引为0、-1（最后一列）的列的排序
+                ]
+            });
+        });
+    </script>
+{% endblock %}

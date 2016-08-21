@@ -1,0 +1,32 @@
+{% extends 'base_form.html' %}
+
+{% block title %}更新用户组{% endblock %}
+
+{% block extend-css %}
+    <link href="/static/css/plugins/duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_header %}用户组管理{% endblock %}
+
+{% block optional_description %}更新机用户组{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">用户&权限管理</a></li>
+    <li><a href="{% url 'myauth-group-list' %}">用户组</a></li>
+    <li class="active">更新用户组</li>
+{% endblock %}
+
+{% block box-title %}更新用户组{% endblock %}
+
+{% block ext_js %}
+    <script src="/static/js/plugins/duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script>
+        $('select').bootstrapDualListbox(
+                {
+                    infoText: false,
+                    nonSelectedListLabel: '可用 用户权限',
+                    selectedListLabel: '被选中 用户权限',
+                    moveOnSelect: false
+                });
+    </script>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base_table.html' %}
+
+{% block title %}主机{% endblock %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link href="/static/css/plugins/select2/select2.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_header %}主机管理{% endblock %}
+
+{% block optional_description %}一点资讯IDC主机列表{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li class="active">主机管理</li>
+{% endblock %}
+
+{% block box-title %}主机列表{% endblock %}
+
+{% block box-tools %}
+    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'asset-host-creation' %}"><i class="fa fa-plus"></i> 新建主机</a>
+{% endblock %}
+
+{% block action_zone %}
+    <form class="form-inline" role="form" action="#" method="get" id="myForm">{% csrf_token %}
+        <div class="row">
+        <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="{{ host_filter_form.product.id_for_label }}">{{ host_filter_form.product.label }}</label>
+                    {% if host_filter_form.product.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ host_filter_form.product.errors }}
+                        </div>
+                    {% endif %}
+                    {{ host_filter_form.product }}
+                    {% if host_filter_form.product.help_text %}
+                        <p class="help-block">{{ host_filter_form.product.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="{{ host_filter_form.cabinet.id_for_label }}">{{ host_filter_form.cabinet.label }}</label>
+                    {% if host_filter_form.cabinet.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ host_filter_form.cabinet.errors }}
+                        </div>
+                    {% endif %}
+                    {{ host_filter_form.cabinet }}
+                    {% if host_filter_form.cabinet.help_text %}
+                        <p class="help-block">{{ host_filter_form.cabinet.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <label for="{{ host_filter_form.status.id_for_label }}">{{ host_filter_form.status.label }}</label>
+                    {% if host_filter_form.status.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ host_filter_form.status.errors }}
+                        </div>
+                    {% endif %}
+                    {{ host_filter_form.status }}
+                    {% if host_filter_form.status.help_text %}
+                        <p class="help-block">{{ host_filter_form.status.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr />
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>资产号</th>
+    <th>服务码</th>
+    <th>主机名</th>
+    <th>产品</th>
+    <th>机柜</th>
+    <th>机柜位置索引</th>
+    <th>操作系统</th>
+    <th>管理IP</th>
+    <th>上线日期</th>
+    <th>过保日期</th>
+    <th>状态</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.an }}</td>
+    <td>{{ object.sn }}</td>
+    <td>{{ object.host_name }}</td>
+    <td>{{ object.product }}</td>
+    <td>{{ object.cabinet }}</td>
+    <td>{{ object.cabinet_index }}</td>
+    <td>{{ object.os }}</td>
+    <td>{{ object.management_ip }}</td>
+    <td>{{ object.online_date }}</td>
+    <td>{{ object.expire_date }}</td>
+    <td>{{ object.get_status_display }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-info btn-xs {% if not perms.asset.read_host %}disabled{% endif %}" role="button" href="{% url 'asset-host-detail' object.id %}">
+            <i class="fa fa-info fa-fw"></i>详情
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_host %}disabled{% endif %}" role="button" href="{% url 'asset-host-deletion' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script src="/static/js/plugins/select2/select2.min.js"></script>
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+        });
+
+        function change_info(){
+            var args = $(".select2").serialize();
+            window.location = "/asset/host/?" + args
+        }
+    </script>
+{% block orderable-false-targets %}2, 3, 4, 5, 6, 7, 8, 9, 11{% endblock %}
+{% endblock %}

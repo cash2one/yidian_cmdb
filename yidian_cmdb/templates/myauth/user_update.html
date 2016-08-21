@@ -1,0 +1,218 @@
+{% extends 'base_form.html' %}
+
+{% block title %}更新用户{% endblock %}
+
+{% block extend-css %}
+    <link href="/static/css/plugins/duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_header %}用户管理{% endblock %}
+
+{% block optional_description %}更新用户信息{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">用户&权限管理</a></li>
+    <li><a href="{% url 'myauth-user-list' %}">用户</a></li>
+    <li class="active">更新用户</li>
+{% endblock %}
+
+{% block box-title %}更新用户{% endblock %}
+
+{% block custom_input %}
+    <fieldset>
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {% if form.username.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.username.errors }}
+                </div>
+            {% endif %}
+            {{ form.username }}
+            {% if form.username.help_text %}
+                <p class="help-block">{{ form.username.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {% if form.password.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.password.errors }}
+                </div>
+            {% endif %}
+            {{ form.password }}
+            {% if form.password.help_text %}
+                <p class="help-block">{{ form.password.help_text | safe }}</p>
+            {% endif %}
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">个人信息</h4>
+        <div class="form-group">
+            <label for="{{ form.job_number.id_for_label }}">{{ form.job_number.label }}</label>
+            {% if form.job_number.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.job_number.errors }}
+                </div>
+            {% endif %}
+            {{ form.job_number }}
+            {% if form.job_number.help_text %}
+                <p class="help-block">{{ form.job_number.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {% if form.first_name.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.first_name.errors }}
+                </div>
+            {% endif %}
+            {{ form.first_name }}
+            {% if form.first_name.help_text %}
+                <p class="help-block">{{ form.first_name.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            {% if form.last_name.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.last_name.errors }}
+                </div>
+            {% endif %}
+            {{ form.last_name }}
+            {% if form.last_name.help_text %}
+                <p class="help-block">{{ form.last_name.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {% if form.email.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.email.errors }}
+                </div>
+            {% endif %}
+            {{ form.email }}
+            {% if form.email.help_text %}
+                <p class="help-block">{{ form.email.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.dingding.id_for_label }}">{{ form.dingding.label }}</label>
+            {% if form.dingding.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.dingding.errors }}
+                </div>
+            {% endif %}
+            {{ form.dingding }}
+            {% if form.dingding.help_text %}
+                <p class="help-block">{{ form.dingding.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+            {% if form.phone_number.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.phone_number.errors }}
+                </div>
+            {% endif %}
+            {{ form.phone_number }}
+            {% if form.phone_number.help_text %}
+                <p class="help-block">{{ form.phone_number.help_text }}</p>
+            {% endif %}
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">权限</h4>
+        <div class="form-group">
+            <label for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label>
+            {% if form.is_active.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.is_active.errors }}
+                </div>
+            {% endif %}
+            {{ form.is_active }}
+            {% if form.is_active.help_text %}
+                <p class="help-block">{{ form.is_active.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.is_staff.id_for_label }}">{{ form.is_staff.label }}</label>
+            {% if form.is_staff.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="alert alert-danger" role="alert">
+                    {{ form.is_staff.errors }}
+                </div>
+            {% endif %}
+            {{ form.is_staff }}
+            {% if form.is_staff.help_text %}
+                <p class="help-block">{{ form.is_staff.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.is_superuser.id_for_label }}">{{ form.is_superuser.label }}</label>
+            {% if form.is_superuser.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.is_superuser.errors }}
+                </div>
+            {% endif %}
+            {{ form.is_superuser }}
+            {% if form.is_superuser.help_text %}
+                <p class="help-block">{{ form.is_superuser.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.groups.id_for_label }}">{{ form.groups.label }}</label>
+            {% if form.groups.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.groups.errors }}
+                </div>
+            {% endif %}
+            {{ form.groups }}
+            {% if form.groups.help_text %}
+                <p class="help-block">{{ form.groups.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.user_permissions.id_for_label }}">{{ form.user_permissions.label }}</label>
+            {% if form.user_permissions.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.user_permissions.errors }}
+                </div>
+            {% endif %}
+            {{ form.user_permissions }}
+            {% if form.user_permissions.help_text %}
+                <p class="help-block">{{ form.user_permissions.help_text }}</p>
+            {% endif %}
+        </div>
+        <hr />
+    </fieldset>
+{% endblock %}
+
+{% block ext_js %}
+    <script src="/static/js/plugins/duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script>
+        $('select[id="id_user_permissions"]').bootstrapDualListbox(
+                {
+                    infoText: false,
+                    nonSelectedListLabel: '可用 用户权限',
+                    selectedListLabel: '被选中 用户权限',
+                    moveOnSelect: false
+                });
+
+        $('select[id="id_groups"]').bootstrapDualListbox(
+                {
+                    infoText: false,
+                    nonSelectedListLabel: '可用 用户组',
+                    selectedListLabel: '被选中 用户组',
+                    moveOnSelect: false
+                });
+    </script>
+{% endblock %}

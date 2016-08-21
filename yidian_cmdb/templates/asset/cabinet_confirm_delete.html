@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}删除机柜确认{% endblock %}
+
+{% block page_header %}删除机柜确认{% endblock %}
+
+{% block optional_description %}删除机柜确认{% endblock %}
+
+{% block page_content %}
+<form action="" method="post">{% csrf_token %}
+    <p>你确定要删除 "{{ object }}" 吗?
+    <input type="submit" class="btn btn-danger btn-xs" value="确认删除" />
+</form>
+{% endblock %}

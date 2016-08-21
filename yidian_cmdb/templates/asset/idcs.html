@@ -1,0 +1,55 @@
+{% extends 'base_table.html' %}
+
+{% block title %}机房{% endblock %}
+
+{% block page_header %}机房管理{% endblock %}
+
+{% block optional_description %}一点资讯IDC机房列表{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li class="active">机房管理</li>
+{% endblock %}
+
+{% block box-title %}IDC机房列表{% endblock %}
+
+{% block box-tools %}
+    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'asset-idc-creation' %}"><i class="fa fa-plus"></i> 新建机房</a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>机房名称</th>
+    <th>地址</th>
+    <th>联系人</th>
+    <th>联系人电话</th>
+    <th>电信带宽/Gbps</th>
+    <th>联通带宽/Gbps</th>
+    <th>BGP带宽/Gbps</th>
+    <th>机柜数量</th>
+    <th>状态</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.name }}</td>
+    <td>{{ object.address }}</td>
+    <td>{{ object.contacts }}</td>
+    <td>{{ object.contact_info }}</td>
+    <td>{{ object.ctc_bandwidth }}</td>
+    <td>{{ object.cnc_bandwidth }}</td>
+    <td>{{ object.bgp_bandwidth }}</td>
+    <td>{{ object.cabinet_total }}</td>
+    <td>{{ object.get_status_display }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-info btn-xs {% if not perms.asset.read_idc %}disabled{% endif %}" role="button" href="{% url 'asset-idc-detail' object.id %}">
+            <i class="fa fa-info fa-fw"></i>详情
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_idc %}disabled{% endif %}" role="button" href="{% url 'asset-idc-deletion' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block orderable-false-targets %}2, 3, 4, 5, 6, 7, 8, 9, 11{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base_table.html' %}
+
+{% block title %}用户{% endblock %}
+
+{% block page_header %}用户管理{% endblock %}
+
+{% block optional_description %}CMDB平台用户列表{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">用户&权限管理</a></li>
+    <li class="active">用户</li>
+{% endblock %}
+
+{% block box-title %}用户列表{% endblock %}
+
+{% block box-tools %}
+    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'myauth-user-creation' %}"><i class="fa fa-plus"></i> 新建用户</a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>用户名</th>
+    <th>是否激活</th>
+    <th>工号</th>
+    <th>姓名</th>
+    <th>邮箱</th>
+    <th>电话</th>
+    <th>钉钉</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.username }}</td>
+    <td>{% if object.is_active %}是{% else %}否{% endif %}</td>
+    <td>{{ object.job_number }}</td>
+    <td>{{ object.last_name }}{{ object.first_name }}</td>
+    <td>{{ object.email }}</td>
+    <td>{{ object.phone_number }}</td>
+    <td>{{ object.dingding }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.myauth.change_myuser %}disabled{% endif %}" role="button" href="{% url 'myauth-user-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.myauth.del_myuser %}disabled{% endif %}" role="button" href="{% url 'myauth-user-deletion' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block orderable-false-targets %}2, 3, 4, 5, 6, 7, 8, 9, 11{% endblock %}

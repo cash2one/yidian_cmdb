@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %}机房详情{% endblock %}
+
+{% block ext_css %}
+    <link rel="stylesheet" href="/static/css/plugins/dataTables/datatables.bootstrap.min.css">
+    <style>
+        th, td { white-space: nowrap; }
+    </style>
+{% endblock %}
+
+{% block page_header %}{{ object.sn }} {{ object.host_name }}{% endblock %}
+
+{% block optional_description %}详细信息{% endblock %}
+
+{% block page_content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_1" data-toggle="tab">资产信息</a></li>
+                <li><a href="#tab_2" data-toggle="tab">产品配置</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <tr>
+                                    <td><strong>资产号:</strong></td>
+                                    <td>{{ object.an }}</td>
+                                    <td><strong>所在机房</strong></td>
+                                    <td>{{ object.cabinet.idc.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>服务码:</strong></td>
+                                    <td>{{ object.sn }}</td>
+                                    <td><strong>所在机柜:</strong></td>
+                                    <td>{{ object.cabinet.name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>生命周期:</strong></td>
+                                    <td>{{ object.online_date|date:"Y-m-d" }} - {{ object.expire_date|date:"Y-m-d" }}</td>
+                                    <td><strong>机柜位置:</strong></td>
+                                    <td>{{ object.cabinet_index }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>主机名</strong></td>
+                                    <td>{{ object.host_name }}</td>
+                                    <td><strong>产品:</strong></td>
+                                    <td>{{ object.product.model }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>管理IP</strong></td>
+                                    <td>{{ object.management_ip }}</td>
+                                    <td><strong>操作系统</strong></td>
+                                    <td>{{ object.os }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>挂在业务节点</strong></td>
+                                    <td>
+                                        {% for node in object.nodes.all %}
+                                            {{ node.verbose_name }};
+                                        {% endfor %}
+                                    </td>
+                                    <td><strong>资产状态:</strong></td>
+                                    <td>{{ object.get_status_display }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-12">
+                            <a type="button" class="btn btn-block btn-success btn-flat btn-sm" href="{% url 'asset-host-update' object.id %}">编辑资产信息</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab_2">
+                    <table class="table">
+                        <tr>
+                            <td><strong>厂商:</strong></td>
+                            <td>{{ object.product.manufacturer.name }}</td>
+                            <td><strong>型号</strong></td>
+                            <td>{{ object.product.model }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>标签:</strong></td>
+                            <td>{{ object.product.tag }}</td>
+                            <td><strong>U:</strong></td>
+                            <td>{{ object.product.u }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>处理器:</strong></td>
+                            <td>{{ object.product.cpu_model }}
+                            <td><strong>内存大小</strong></td>
+                            <td>{{ object.product.mem_size }}G</td>
+                        </tr>
+                        <tr>
+                            <td><strong>处理器个数:</strong></td>
+                            <td>{{ object.product.cpu_count }}</td>
+                            <td><strong>内存条数:</strong></td>
+                            <td>{{ object.product.mem_count }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>磁盘类型:</strong></td>
+                            <td>{{ object.product.get_disk_type_display }}</td>
+                            <td><strong>网卡类型:</strong></td>
+                            <td>{{ object.product.get_nic_type_display }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>机械硬盘块数:</strong></td>
+                            <td>{{ object.product.hdd_disk_count }}</td>
+                            <td><strong>电口网卡数:</strong></td>
+                            <td>{{ object.product.dk_nic_count }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>固态硬盘块数:</strong></td>
+                            <td>{{ object.product.ssd_disk_count }}</td>
+                            <td><strong>光口网卡数:</strong></td>
+                            <td>{{ object.product.gk_nic_count }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

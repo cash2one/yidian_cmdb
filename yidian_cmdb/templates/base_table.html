@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}表格页模版{% endblock %}
+
+{% block ext_css %}
+    <link rel="stylesheet" href="/static/css/plugins/dataTables/dataTables.bootstrap.min.css">
+    <style>
+        th, td { white-space: nowrap; }
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    {% block extra_content %}{% endblock %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">{% block box-title %}Data Table{% endblock %}</h3>
+            <div class="box-tools pull-right">
+                {% block box-tools %}{% endblock %}
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            {% block action_zone %}{% endblock %}
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="checkAll">
+                        </th>
+                        {% block thead-tr-th %}{% endblock %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in object_list %}
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="tableRecord" value="">
+                            </td>
+                            {% block tbody-tr-td %}{% endblock %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block ext_js %}
+    <script src="/static/js/plugins/dataTables/jquery.dataTables.min.js"></script>
+    <script src="/static/js/plugins/dataTables/dataTables.bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable({
+                "language": { // 异步加载插件中文显示
+                    "url": "/static/js/plugins/dataTables/plug-ins/Chinese.json"
+                },
+                "pagingType": "full_numbers", // 设置插件分页按钮的显示形式
+                "scrollX": true, // 激活插件水平方向滚动条
+                "pageLength": 50, // 设置插件初始化单页显示的记录条目数
+                "order": [[1, "desc"]], // 插件初始化以索引为1的列进行排序
+                "columnDefs": [
+                    {"orderable": false, "targets": [0, -1, {% block orderable-false-targets %}{% endblock %}]}, // 禁用索引为0、-1（最后一列）的列的排序
+                ]
+            });
+        });
+    </script>
+{% endblock %}

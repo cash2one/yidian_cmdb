@@ -1,0 +1,65 @@
+{% extends 'base_table.html' %}
+
+{% block title %}服务器产品{% endblock %}
+
+{% block page_header %}服务器产品管理{% endblock %}
+
+{% block optional_description %}服务器产品列表{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li class="active">服务器产品</li>
+{% endblock %}
+
+{% block box-title %}服务器产品列表{% endblock %}
+
+{% block box-tools %}
+    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'asset-server_product-creation' %}"><i class="fa fa-plus"></i> 新建服务器产品</a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>型号</th>
+    <th>厂商</th>
+    <th>U</th>
+    <th>标签</th>
+    <th>处理器型号</th>
+    <th>处理器物理个数</th>
+    <th>内存大小</th>
+    <th>内存条数</th>
+    <th>磁盘类型</th>
+    <th>机械硬盘块数</th>
+    <th>固态硬盘块数</th>
+    <th>网卡类型</th>
+    <th>电口网卡块数</th>
+    <th>光口网卡块数</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.model }}</td>
+    <td>{{ object.manufacturer }}</td>
+    <td>{{ object.u }}</td>
+    <td>{{ object.tag }}</td>
+    <td>{{ object.cpu_model }}</td>
+    <td>{{ object.cpu_count }}</td>
+    <td>{{ object.mem_size }}</td>
+    <td>{{ object.mem_count }}</td>
+    <td>{{ object.get_disk_type_display }}</td>
+    <td>{{ object.hdd_disk_count }}</td>
+    <td>{{ object.ssd_disk_count }}</td>
+    <td>{{ object.get_nic_type_display }}</td>
+    <td>{{ object.dk_nic_count }}</td>
+    <td>{{ object.gk_nic_count }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_serverproduct %}disabled{% endif %}" role="button" href="{% url 'asset-server_product-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.del_serverproduct %}disabled{% endif %}" role="button" href="{% url 'asset-server_product-deletion' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block orderable-false-targets %}4, 5, 6, 7, 16{% endblock %}

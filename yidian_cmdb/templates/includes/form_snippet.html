@@ -1,0 +1,15 @@
+{% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+            <div class="callout callout-danger">
+                {{ field.errors }}
+            </div>
+        {% endif %}
+        {{ field }}
+        {% if field.help_text %}
+            <p class="help-block">{{ field.help_text }}</p>
+        {% endif %}
+    </div>
+    <hr />
+{% endfor %}

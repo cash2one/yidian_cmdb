@@ -1,0 +1,242 @@
+{% extends 'base_form.html' %}
+
+{% block title %}更新主机{% endblock %}
+
+{% block extend-css %}
+    <link href="/static/css/plugins/duallistbox/bootstrap-duallistbox.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_header %}主机管理{% endblock %}
+
+{% block optional_description %}更新主机{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li><a href="{% url 'asset-host-list' %}">主机管理</a></li>
+    <li><a href="{% url 'asset-host-detail' object.id %}">主机详情</a></li>
+    <li class="active">更新主机</li>
+{% endblock %}
+
+{% block box-title %}更新主机{% endblock %}
+
+{% block custom_input %}
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">资产属性</h4>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.an.id_for_label }}">{{ form.an.label }}</label>
+                    {% if form.an.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.an.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.an }}
+                    {% if form.an.help_text %}
+                        <p class="help-block">{{ form.an.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.sn.id_for_label }}">{{ single_host_creation_form.sn.label }}</label>
+                    {% if single_host_creation_form.sn.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.sn.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.sn }}
+                    {% if form.sn.help_text %}
+                        <p class="help-block">{{ form.sn.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.product.id_for_label }}">{{ form.product.label }}</label>
+                    {% if form.product.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.product.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.product }}
+                    {% if form.product.help_text %}
+                        <p class="help-block">{{ form.product.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">位置信息</h4>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.cabinet.id_for_label }}">{{ form.cabinet.label }}</label>
+                    {% if form.cabinet.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.cabinet.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.cabinet }}
+                    {% if form.cabinet.help_text %}
+                        <p class="help-block">{{ form.cabinet.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.cabinet_index.id_for_label }}">{{ form.cabinet_index.label }}</label>
+                    {% if form.cabinet_index.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.cabinet_index.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.cabinet_index }}
+                    {% if form.cabinet_index.help_text %}
+                        <p class="help-block">{{ form.cabinet_index.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">管理信息</h4>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.os.id_for_label }}">{{ form.os.label }}</label>
+                    {% if form.os.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.os.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.os }}
+                    {% if form.os.help_text %}
+                        <p class="help-block">{{ form.os.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.host_name.id_for_label }}">{{ form.host_name.label }}</label>
+                    {% if form.host_name.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.host_name.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.host_name }}
+                    {% if form.host_name.help_text %}
+                        <p class="help-block">{{ form.host_name.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.management_ip.id_for_label }}">{{ form.management_ip.label }}</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                        </div>
+                        {% if form.management_ip.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                            <div class="callout callout-danger">
+                                {{ form.management_ip.errors }}
+                            </div>
+                        {% endif %}
+                        {{ form.management_ip }}
+                        {% if form.management_ip.help_text %}
+                            <p class="help-block">{{ form.management_ip.help_text }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <label for="{{ form.nodes.id_for_label }}">{{ form.nodes.label }}</label>
+            {% if form.nodes.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                <div class="callout callout-danger">
+                    {{ form.nodes.errors }}
+                </div>
+            {% endif %}
+            {{ form.nodes }}
+            {% if form.nodes.help_text %}
+                <p class="help-block">{{ form.nodes.help_text }}</p>
+            {% endif %}
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">上线信息</h4>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.online_date.id_for_label }}">{{ form.online_date.label }}</label>
+                    {% if form.online_date.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.online_date.errors }}
+                        </div>
+                    {% endif %}
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        {{ form.online_date }}
+                        {% if form.online_date.help_text %}
+                            <p class="help-block">{{ form.online_date.help_text }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.status.id_for_label }}">{{ form.status.label }}</label>
+                    {% if form.status.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.status.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.status }}
+                    {% if form.status.help_text %}
+                        <p class="help-block">{{ form.status.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <hr />
+    <div class="form-group">
+        <label for="{{ form.remark.id_for_label }}">{{ form.remark.label }}</label>
+        {% if form.remark.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+            <div class="callout callout-danger">
+                {{ form.remark.errors }}
+            </div>
+        {% endif %}
+        {{ form.remark }}
+        {% if form.remark.help_text %}
+            <p class="help-block">{{ form.remark.help_text }}</p>
+        {% endif %}
+    </div>
+    <hr />
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script src="/static/js/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/static/js/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/static/js/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="/static/js/plugins/duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script>
+        $(function () {
+            $("#id_online_date").inputmask("yyyy-mm-dd", {"placeholder": "yyyy-mm-dd"});
+            $("[data-mask]").inputmask();
+
+            $('select[id=id_nodes]').bootstrapDualListbox(
+                {
+                    infoText: false,
+                    nonSelectedListLabel: '可用 节点',
+                    selectedListLabel: '被选中 节点',
+                    moveOnSelect: false
+                });
+        });
+    </script>
+{% endblock %}

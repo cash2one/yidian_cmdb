@@ -1,0 +1,85 @@
+{% extends 'base_table.html' %}
+
+{% block title %}业务节点{% endblock %}
+
+{% block ext_css %}
+    {{ block.super }}
+    <link href="/static/dist/themes/default/style.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block page_header %}业务节点管理{% endblock %}
+
+{% block optional_description %}一点资讯业务节点列表{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li class="active">业务节点管理</li>
+{% endblock %}
+
+{% block extra_content %}
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">树形结构展示</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div id="jstree_div"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block box-title %}业务节点列表{% endblock %}
+
+{% block box-tools %}
+    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'asset-node-creation' %}"><i class="fa fa-plus"></i> 新建业务节点</a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>节点名称</th>
+    <th>冗长名称</th>
+    <th>挂在父节点</th>
+    <th>绝对路径</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.node_name }}</td>
+    <td>{{ object.verbose_name }}</td>
+    <td>{{ object.parent }}</td>
+    <td>{{ object.absolute_path }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_node %}disabled{% endif %}" role="button" href="{% url 'asset-node-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_node %}disabled{% endif %}" role="button" href="{% url 'asset-node-deletion' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block ext_js %}
+    {{ block.super }}
+    <script type="text/javascript" src="/static/dist/jstree.min.js"></script>
+    <script type="text/javascript">
+        $('#jstree_div').jstree({
+            'core': {
+                "expand_selected_onload": true,
+                "multiple" : false, // 关闭多节点选择
+                "themes" : {
+                    "stripes" : true, // 条状样式
+                    "dots" : false // 关闭层次连接线
+                },
+                'data': {{ nodes_json|safe }}
+            },
+            "plugins" : [
+                "wholerow", "state"
+            ],
+        });
+    </script>
+{% endblock %}

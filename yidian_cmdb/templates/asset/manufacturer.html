@@ -1,0 +1,53 @@
+{% extends 'base_table.html' %}
+
+{% block title %}经销商{% endblock %}
+
+{% block page_header %}经销商管理{% endblock %}
+
+{% block optional_description %}经销商列表{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li class="active">经销商管理</li>
+{% endblock %}
+
+{% block box-title %}经销商列表{% endblock %}
+
+{% block box-tools %}
+    <a type="button" class="btn btn-success btn-flat btn-sm" href="{% url 'asset-manufacturer-creation' %}"><i class="fa fa-plus"></i> 新建经销商</a>
+{% endblock %}
+
+{% block thead-tr-th %}
+    <th>ID</th>
+    <th>厂商名称</th>
+    <th>销售接口人</th>
+    <th>销售接口人联系信息</th>
+    <th>售后接口人</th>
+    <th>售后接口人联系信息</th>
+    <th>备注</th>
+    <th>记录创建时间</th>
+    <th>记录最后更新时间</th>
+    <th>操作</th>
+{% endblock %}
+
+{% block tbody-tr-td %}
+    <td>{{ object.id }}</td>
+    <td>{{ object.name }}</td>
+    <td>{{ object.sale }}</td>
+    <td>{{ object.sale_contact }}</td>
+    <td>{{ object.service }}</td>
+    <td>{{ object.service_contact }}</td>
+    <td>{{ object.remark }}</td>
+    <td>{{ object.created|date:"Y-m-d H:i:s" }}</td>
+    <td>{{ object.updated|date:"Y-m-d H:i:s" }}</td>
+    <td>
+        <a title="编辑" id="edit_{{ object.id }}" class="btn btn-success btn-xs {% if not perms.asset.change_manufacturer %}disabled{% endif %}" role="button" href="{% url 'asset-manufacturer-update' object.id %}">
+            <i class="fa fa-edit fa-fw"></i>编辑
+        </a>
+        <a title="删除" id="del_{{ object.id }}" class="btn btn-danger btn-xs {% if not perms.asset.delete_manufacturer %}disabled{% endif %}" role="button" href="{% url 'asset-manufacturer-deletion' object.id %}">
+            <i class="fa fa-trash-o fa-fw"></i>删除
+        </a>
+    </td>
+{% endblock %}
+
+{% block orderable-false-targets %}2, 3, 4, 5, 6, 7{% endblock %}

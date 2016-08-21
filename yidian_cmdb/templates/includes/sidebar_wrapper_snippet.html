@@ -1,0 +1,34 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu">
+            <li class="header">HEADER</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> <span>仪表板</span></a></li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-server"></i> <span>资产管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'asset-node-list' %}">业务节点管理</a></li>
+                    <li><a href="{% url 'asset-manufacturer-list' %}">经销商管理</a></li>
+                    <li><a href="{% url 'asset-server_product-list' %}">服务器产品</a></li>
+                    <li><a href="{% url 'asset-idc-list' %}">机房管理</a></li>
+                    <li><a href="{% url 'asset-host-list' %}">主机管理</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#"><i class="fa fa-users"></i> <span>用户&权限管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{% url 'myauth-user-list' %}">用户</a></li>
+                    <li><a href="{% url 'myauth-group-list' %}">用户组</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+</aside>

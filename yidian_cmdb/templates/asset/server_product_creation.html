@@ -1,0 +1,251 @@
+{% extends 'base_form.html' %}
+
+{% block title %}创建服务器产品{% endblock %}
+
+{% block page_header %}服务器产品管理{% endblock %}
+
+{% block optional_description %}创建服务器产品{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="#">资产管理</a></li>
+    <li><a href="{% url 'asset-server_product-list' %}">服务器产品</a></li>
+    <li class="active">创建服务器产品</li>
+{% endblock %}
+
+{% block box-title %}创建服务器产品{% endblock %}
+
+{% block custom_input %}
+    <fieldset>
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label for="{{ form.model.id_for_label }}">{{ form.model.label }}</label>
+                    {% if form.model.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.model.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.model }}
+                    {% if form.model.help_text %}
+                        <p class="help-block">{{ form.model.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label for="{{ form.manufacturer.id_for_label }}">{{ form.manufacturer.label }}</label>
+                    {% if form.manufacturer.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.manufacturer.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.manufacturer }}
+                    {% if form.manufacturer.help_text %}
+                        <p class="help-block">{{ form.manufacturer.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label for="{{ form.u.id_for_label }}">{{ form.u.label }}</label>
+                    {% if form.u.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.u.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.u }}
+                    {% if form.u.help_text %}
+                        <p class="help-block">{{ form.u.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="form-group">
+                    <label for="{{ form.tag.id_for_label }}">{{ form.tag.label }}</label>
+                    {% if form.tag.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.tag.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.tag }}
+                    {% if form.tag.help_text %}
+                        <p class="help-block">{{ form.tag.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">处理器</h4>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.cpu_model.id_for_label }}">{{ form.cpu_model.label }}</label>
+                    {% if form.cpu_model.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.cpu_model.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.cpu_model }}
+                    {% if form.cpu_model.help_text %}
+                        <p class="help-block">{{ form.cpu_model.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.cpu_count.id_for_label }}">{{ form.cpu_count.label }}</label>
+                    {% if form.cpu_count.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.cpu_count.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.cpu_count }}
+                    {% if form.cpu_count.help_text %}
+                        <p class="help-block">{{ form.cpu_count.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">内存</h4>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.mem_size.id_for_label }}">{{ form.mem_size.label }}</label>
+                    {% if form.mem_size.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.mem_size.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.mem_size }}
+                    {% if form.mem_size.help_text %}
+                        <p class="help-block">{{ form.mem_size.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="{{ form.mem_count.id_for_label }}">{{ form.mem_count.label }}</label>
+                    {% if form.mem_count.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.mem_count.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.mem_count }}
+                    {% if form.mem_count.help_text %}
+                        <p class="help-block">{{ form.mem_count.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">硬盘</h4>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.disk_type.id_for_label }}">{{ form.disk_type.label }}</label>
+                    {% if form.disk_type.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.disk_type.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.disk_type }}
+                    {% if form.disk_type.help_text %}
+                        <p class="help-block">{{ form.disk_type.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.hdd_disk_count.id_for_label }}">{{ form.hdd_disk_count.label }}</label>
+                    {% if form.hdd_disk_count.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.hdd_disk_count.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.hdd_disk_count }}
+                    {% if form.hdd_disk_count.help_text %}
+                        <p class="help-block">{{ form.hdd_disk_count.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.ssd_disk_count.id_for_label }}">{{ form.ssd_disk_count.label }}</label>
+                    {% if form.ssd_disk_count.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.ssd_disk_count.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.ssd_disk_count }}
+                    {% if form.ssd_disk_count.help_text %}
+                        <p class="help-block">{{ form.ssd_disk_count.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <h4 style="color: #31708f;background-color: #d9edf7;padding: 10px;border-color: #bce8f1;">网卡</h4>
+        <div class="row">
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.nic_type.id_for_label }}">{{ form.nic_type.label }}</label>
+                    {% if form.disk_type.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.nic_type.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.nic_type }}
+                    {% if form.nic_type.help_text %}
+                        <p class="help-block">{{ form.nic_type.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.dk_nic_count.id_for_label }}">{{ form.dk_nic_count.label }}</label>
+                    {% if form.dk_nic_count.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.dk_nic_count.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.dk_nic_count }}
+                    {% if form.dk_nic_count.help_text %}
+                        <p class="help-block">{{ form.dk_nic_count.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="form-group">
+                    <label for="{{ form.gk_nic_count.id_for_label }}">{{ form.gk_nic_count.label }}</label>
+                    {% if form.gk_nic_count.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+                        <div class="callout callout-danger">
+                            {{ form.gk_nic_count.errors }}
+                        </div>
+                    {% endif %}
+                    {{ form.gk_nic_count }}
+                    {% if form.gk_nic_count.help_text %}
+                        <p class="help-block">{{ form.gk_nic_count.help_text }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <hr />
+    <div class="form-group">
+        <label for="{{ form.remark.id_for_label }}">{{ form.remark.label }}</label>
+        {% if form.remark.errors %} {# 判断表单域的 errors 属性是否为非空列表 #}
+            <div class="callout callout-danger">
+                {{ form.remark.errors }}
+            </div>
+        {% endif %}
+        {{ form.remark }}
+        {% if form.remark.help_text %}
+            <p class="help-block">{{ form.remark.help_text }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
